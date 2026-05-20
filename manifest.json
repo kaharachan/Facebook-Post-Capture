@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Facebook Post Capture",
+  "version": "0.1.0",
+  "description": "Capture the Facebook post or post modal selected by right-click.",
+  "icons": {
+    "48": "icon/icon48.png"
+  },
+  "permissions": ["contextMenus", "activeTab", "tabs", "scripting", "downloads", "storage", "clipboardWrite"],
+  "host_permissions": ["https://www.facebook.com/*", "https://web.facebook.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*", "https://web.facebook.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Facebook Post Capture",
+    "default_icon": {
+      "48": "icon/icon48.png"
+    },
+    "default_popup": "popup.html"
+  }
+}

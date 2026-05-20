@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Facebook Post Capture</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+
+  <body>
+    <main class="popup">
+      <section class="hero">
+        <div class="hero-top">
+          <div class="app-icon" aria-hidden="true">
+            <img src="icon/icon48.png" alt="">
+          </div>
+
+          <div class="hero-copy">
+            <h1>Facebook Capture</h1>
+            <p>Chụp bài viết Facebook nhanh, gọn và có tuỳ chọn ẩn danh.</p>
+          </div>
+        </div>
+
+        <div class="hero-footer">
+          <div class="social-links">
+            <a class="author-pill" href="https://github.com/kaharachan/Facebook-Post-Capture" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/>
+              </svg>
+              <span>@kahara</span>
+            </a>
+
+            <a class="author-pill" href="https://t.me/kaharachan" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path d="M21.94 4.16a1.42 1.42 0 0 0-1.45-.23L3.07 10.66c-.76.3-1.2.78-1.13 1.3.07.52.6.9 1.42 1.08l4.45.96 1.7 5.34c.2.63.55 1.02 1.03 1.08.48.07.9-.2 1.25-.76l2.42-3.8 4.55 3.36c.47.35.94.46 1.34.33.4-.14.68-.52.8-1.1l2.98-12.84c.15-.66-.02-1.2-.44-1.45Zm-3.39 3.09-7.82 7.08-.3 3.16-1.16-3.65 9.28-6.59Z"/>
+              </svg>
+              <span>Telegram</span>
+            </a>
+          </div>
+
+          <span class="version-pill">v1.0</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <p class="hint">
+          Right-click trong bài viết Facebook rồi chọn context menu, hoặc dùng các nút bên dưới để test.
+        </p>
+
+        <label class="toggle-row">
+          <span>
+            <strong>Làm mờ tên chủ post</strong>
+            <small>Che tên người đăng như “Nguyễn Văn A”</small>
+          </span>
+          <input id="blurOwnerName" type="checkbox">
+        </label>
+
+        <label class="toggle-row">
+          <span>
+            <strong>Làm mờ tên group</strong>
+            <small>Che tên group như “Phở bò VN”.</small>
+          </span>
+          <input id="blurGroupName" type="checkbox">
+        </label>
+
+        <label class="toggle-row">
+          <span>
+            <strong>Hiện menu sau capture</strong>
+            <small>Bật preview với nút Copy và Download.</small>
+          </span>
+          <input id="showCaptureMenu" type="checkbox">
+        </label>
+
+        <div class="action-grid">
+          <button id="debug" class="btn btn-danger">Highlight target</button>
+          <button id="capture" class="btn btn-primary">Capture target</button>
+        </div>
+
+        <pre id="status">Sẵn sàng.</pre>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
