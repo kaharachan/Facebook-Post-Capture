@@ -96,7 +96,7 @@ Click `Highlight target` trong popup để kiểm tra extension đang nhận di�
 
 ## Technical notes
 
-Phần logic chi tiết đã được tách ra để README gọn hơn:
+Phần logic chi tiết:
 
 - [Architecture](docs/ARCHITECTURE.md)
 
