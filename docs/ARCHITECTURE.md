@@ -1,6 +1,6 @@
 # Architecture
 
-Tài liệu này ghi lại phần logic kỹ thuật của Facebook Post Capture. README chính chỉ giữ nội dung giới thiệu, cài đặt và cách dùng.
+Tài liệu này ghi lại phần logic kỹ thuật của Facebook Post Capture.
 
 ## Tổng quan luồng capture
 
