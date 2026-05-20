@@ -93,21 +93,6 @@ Click `Highlight target` trong popup để kiểm tra extension đang nhận di�
 | `Làm mờ tên group` | Off | Che tên group trong post group. |
 | `Hiện menu sau capture` | Off | Bật modal preview sau capture với nút `Copy` và `Download`. |
 
-## Project structure
-
-```text
-.
-├── background.js          # Service worker: context menu, capture, crop, download
-├── content.js             # Target detection, fit-clone, masking, clipboard, modal, toast
-├── manifest.json          # Chrome/Edge Manifest V3 config
-├── popup.html             # Popup markup
-├── popup.css              # Popup UI styles
-├── popup.js               # Popup settings/actions
-├── icon/
-│   └── icon48.png         # Extension icon
-└── docs/
-    └── ARCHITECTURE.md    # Technical notes
-```
 
 ## Technical notes
 
