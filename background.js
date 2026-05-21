@@ -84,18 +84,20 @@ async function captureFacebookTarget(tab) {
 
   const options = await getCaptureOptions();
   const prepared = await sendMessage(tab.id, {
-    type: 'PREPARE_FIT_FACEBOOK_CAPTURE',
+    type: 'PREPARE_FULL_FACEBOOK_CAPTURE',
     blurOwnerName: options.blurOwnerName,
-    blurGroupName: options.blurGroupName
+    blurGroupName: options.blurGroupName,
+    expandSeeMore: options.expandSeeMore,
+    attachPostQr: options.attachPostQr
   });
   if (!prepared?.ok) return prepared || { ok: false, error: 'Content script không phản hồi.' };
 
   try {
-    const croppedDataUrl = await captureFitTarget(tab, prepared.session);
+    const croppedDataUrl = await captureFullTarget(tab, prepared.session);
     const filename = `facebook-post-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
 
     const action = options.showCaptureMenu
-      ? await sendMessage(tab.id, { type: 'SHOW_CAPTURE_RESULT_MODAL', dataUrl: croppedDataUrl, filename })
+      ? await sendMessage(tab.id, { type: 'SHOW_CAPTURE_RESULT_MODAL', dataUrl: croppedDataUrl, filename, postUrl: prepared.debug?.postLink || null })
       : await sendMessage(tab.id, { type: 'COPY_CAPTURE_TO_CLIPBOARD', dataUrl: croppedDataUrl, filename });
 
     return {
@@ -116,12 +118,16 @@ async function getCaptureOptions() {
   const settings = await chrome.storage.local.get({
     blurOwnerName: false,
     blurGroupName: false,
-    showCaptureMenu: false
+    showCaptureMenu: false,
+    expandSeeMore: false,
+    attachPostQr: false
   });
   return {
     blurOwnerName: Boolean(settings.blurOwnerName),
     blurGroupName: Boolean(settings.blurGroupName),
-    showCaptureMenu: Boolean(settings.showCaptureMenu)
+    showCaptureMenu: Boolean(settings.showCaptureMenu),
+    expandSeeMore: Boolean(settings.expandSeeMore),
+    attachPostQr: Boolean(settings.attachPostQr)
   };
 }
 

@@ -5,7 +5,7 @@
 <h1 align="center">Facebook Post Capture</h1>
 
 <p align="center">
-  Capture riêng bài viết hoặc modal bài viết Facebook, hỗ trợ làm mờ tên và copy ảnh nhanh vào clipboard.
+  Capture riêng bài viết hoặc modal bài viết Facebook, hỗ trợ ảnh sắc nét, làm mờ tên, tự mở nội dung rút gọn và gắn QR link bài viết.
 </p>
 
 <p align="center">
@@ -38,17 +38,21 @@
   </tr>
 </table>
 
-Popup cho phép bật/tắt các tuỳ chọn privacy và output. Preview modal hiển thị ảnh vừa capture kèm thao tác `Copy`, `Download` hoặc `Đóng`.
+Popup cho phép bật/tắt các tuỳ chọn privacy, QR/link và output. Preview modal hiển thị ảnh vừa capture, link bài viết và thao tác `Copy`, `Download` hoặc `Đóng`.
 
 ## Features
 
 - Capture đúng post hoặc post modal đang chọn trên Facebook.
 - Không phụ thuộc vào class obfuscated của Facebook.
-- Tự fit target vào viewport để tránh lỗi lặp sticky header khi scroll-capture.
+- Chụp post dài bằng cơ chế scroll-stitching kiểu GoFullPage để giữ ảnh sắc nét theo device pixel ratio.
 - Copy ảnh PNG vào clipboard sau khi capture.
 - Tuỳ chọn hiện modal preview với nút `Copy`, `Download`, `Đóng`.
+- Preview modal hiển thị link bài viết bên dưới các nút thao tác.
 - Tuỳ chọn che tên chủ post.
 - Tuỳ chọn che tên group.
+- Tuỳ chọn tự mở `Xem thêm` / `See more` trước khi capture.
+- Tuỳ chọn tự lấy link bài viết, tạo QR và gắn vào header của post.
+- Debug `Highlight target` hiển thị `Post Url <case>` để biết link được lấy từ `current`, `direct` hay `hover`.
 - Toast `Đã sao chép hình ảnh` sau khi copy thành công.
 - Chạy trực tiếp bằng Manifest V3, không cần build step.
 
@@ -83,7 +87,11 @@ Popup cho phép bật/tắt các tuỳ chọn privacy và output. Preview modal 
 
 ### Debug target
 
-Click `Highlight target` trong popup để kiểm tra extension đang nhận diện đúng bài viết/modal nào.
+Click `Highlight target` trong popup để kiểm tra extension đang nhận diện đúng bài viết/modal nào. Output debug có thêm dòng `Post Url <case>: ...`, ví dụ:
+
+- `Post Url current-watch`: lấy từ URL hiện tại của tab.
+- `Post Url direct-group-derived`: lấy trực tiếp từ link có sẵn trong DOM và derive thành link group post canonical.
+- `Post Url hover-pfbid-post`: lấy được sau khi hover timestamp để Facebook hydrate link canonical.
 
 ## Settings
 
@@ -92,6 +100,8 @@ Click `Highlight target` trong popup để kiểm tra extension đang nhận di�
 | `Làm mờ tên chủ post` | Off | Che tên người đăng bài, ví dụ người đăng trong post cá nhân hoặc post group. |
 | `Làm mờ tên group` | Off | Che tên group trong post group. |
 | `Hiện menu sau capture` | Off | Bật modal preview sau capture với nút `Copy` và `Download`. |
+| `Tự mở Xem thêm` | Off | Click các nút `Xem thêm` / `See more` trong target trước khi capture. |
+| `Gắn QR link bài viết` | Off | Tự tìm link bài viết, tạo QR và gắn vào header trước khi capture. |
 
 
 ## Technical notes
@@ -102,10 +112,11 @@ Phần logic chi tiết:
 
 Tóm tắt nhanh:
 
-- Extension dùng `chrome.tabs.captureVisibleTab()` để chụp viewport.
-- Trước khi chụp, `content.js` clone riêng target bài viết/modal và scale vào viewport.
-- `background.js` crop đúng vùng clone theo device pixel ratio.
-- Mask tên chỉ áp dụng trên clone, không sửa DOM gốc của Facebook.
+- Extension dùng `chrome.tabs.captureVisibleTab()` để chụp từng viewport.
+- `background.js` stitch nhiều viewport lại bằng `OffscreenCanvas`, crop đúng target theo device pixel ratio.
+- `content.js` chuẩn bị target, scroll đúng offset, mở `Xem thêm`, gắn QR và ẩn các tooltip/floating UI có thể che ảnh.
+- Mask tên áp dụng tạm trong phiên capture rồi restore lại DOM sau khi chụp.
+- Link bài viết được tìm theo nhiều case: URL hiện tại, link có sẵn trong DOM, link group/media derive, `multi_permalinks`, `story_fbid`, `pfbid`, `watch`, và fallback hover timestamp.
 
 ## Permissions
 
@@ -126,7 +137,9 @@ Host permissions:
 
 - Facebook có thể thay đổi DOM, nên selector/marker có thể cần cập nhật theo thời gian.
 - Copy ảnh vào clipboard cần browser hỗ trợ `ClipboardItem`.
-- Target quá dài sẽ được scale nhỏ để nằm trong viewport trước khi capture.
+- Target quá dài cần nhiều lượt capture viewport nên có thể mất thêm thời gian.
+- Tự lấy link bài viết phụ thuộc vào DOM/href Facebook expose; một số post riêng tư hoặc layout mới có thể không có URL canonical.
+- QR sử dụng endpoint QuickChart để tạo ảnh QR từ link bài viết.
 
 ## Disclaimer
 
