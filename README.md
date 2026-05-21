@@ -22,6 +22,9 @@
 <table>
   <tr>
     <td align="center">
+      <strong>Context menu</strong>
+    </td>
+    <td align="center">
       <strong>Extension popup</strong>
     </td>
     <td align="center">
@@ -29,10 +32,13 @@
     </td>
   </tr>
   <tr>
-    <td align="center" width="50%">
+    <td align="center" width="33%">
+      <img src="docs/images/context-menu.png" alt="Facebook Post Capture context menu" width="320">
+    </td>
+    <td align="center" width="33%">
       <img src="docs/images/popup.png" alt="Facebook Post Capture popup" width="360">
     </td>
-    <td align="center" width="50%">
+    <td align="center" width="34%">
       <img src="docs/images/preview-modal.png" alt="Facebook Post Capture preview modal" width="520">
     </td>
   </tr>
@@ -44,7 +50,7 @@ Popup cho phép bật/tắt các tuỳ chọn privacy, QR/link và output. Previ
 
 - Capture đúng post hoặc post modal đang chọn trên Facebook.
 - Không phụ thuộc vào class obfuscated của Facebook.
-- Chụp post dài bằng cơ chế scroll-stitching kiểu GoFullPage để giữ ảnh sắc nét theo device pixel ratio.
+- Chụp post dài bằng cơ chế scroll-stitching để giữ ảnh sắc nét theo device pixel ratio.
 - Copy ảnh PNG vào clipboard sau khi capture.
 - Tuỳ chọn hiện modal preview với nút `Copy`, `Download`, `Đóng`.
 - Preview modal hiển thị link bài viết bên dưới các nút thao tác.
@@ -52,7 +58,6 @@ Popup cho phép bật/tắt các tuỳ chọn privacy, QR/link và output. Previ
 - Tuỳ chọn che tên group.
 - Tuỳ chọn tự mở `Xem thêm` / `See more` trước khi capture.
 - Tuỳ chọn tự lấy link bài viết, tạo QR và gắn vào header của post.
-- Debug `Highlight target` hiển thị `Post Url <case>` để biết link được lấy từ `current`, `direct` hay `hover`.
 - Toast `Đã sao chép hình ảnh` sau khi copy thành công.
 - Chạy trực tiếp bằng Manifest V3, không cần build step.
 
